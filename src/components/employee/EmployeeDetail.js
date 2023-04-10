@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getEmployeeById } from "../../managers/employees"
 
 import "./Employees.css"
@@ -7,7 +7,7 @@ import "./Employees.css"
 
 export const EmployeeDetail = () => {
   const { employeeId } = useParams()
-
+  const navigate = useNavigate()
   const [employee, setEmployee] = useState({})
 
   useEffect(() => {
@@ -25,6 +25,9 @@ export const EmployeeDetail = () => {
           : `Currently taking care of ${employee?.animals?.map(a => a.name)}`
         }
       </div>
+      <button onClick={() => {
+        navigate(`/employees/edit/${employee.id}`)
+      }}>Edit</button>
     </section>
   )
 }
